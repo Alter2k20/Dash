@@ -39,3 +39,9 @@
 
 # debug information files
 *.dwo
+
+#video
+*.mp4
+*.avi
+*.mkv
+*.webm
