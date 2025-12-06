@@ -2,7 +2,6 @@
  * Dash : in memory cache database string only
  * following singleton
  */
-
 #pragma once
 #include <memory>
 #include<string>
@@ -37,8 +36,6 @@ namespace db {
         bool SET(std::string &key, std::string &value);
         std::string GET(std::string &key);
     } DB;
-
-
 
 }
 using DB_ptr = std::shared_ptr<db::DB>;

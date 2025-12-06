@@ -1,11 +1,11 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "dash.hpp"
+#include "include/dash.hpp"
 
 int main() {
     DB_ptr db = db_instance("mydb");
-
+    std::cout<< "type EXIT to quit.\n";
     std::string line;
 
     while (true) {
