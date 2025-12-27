@@ -5,9 +5,10 @@
 #pragma once
 #include <string>
 #include <fstream>
+#include <unordered_map>
 
 
-namespace log{
+namespace Log{
     class Logger{
 
         public:
@@ -18,5 +19,22 @@ namespace log{
         private:
             std::ofstream file;
             int log_count = 0;
+            bool file_status = false;
     };
 }
+
+namespace Backup {
+    class BackupUnit {
+    public:
+        BackupUnit() = default;
+        BackupUnit(const std::string& filepath);
+        int Backup(const std::unordered_map<std::string, std::string> &data);
+        void Restore(const std::string& filepath);
+    private: 
+        std::ofstream file;
+        std::string data;
+        bool backup_status = false;
+    };
+}
+
+

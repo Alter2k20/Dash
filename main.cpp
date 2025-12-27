@@ -1,14 +1,19 @@
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include "include/dash.hpp"
+#include "include/log.hpp"
 
 int main() {
-    DB_ptr db = db_instance("mydb");
-    std::cout<< "type EXIT to quit.\n";
+    std::string db_name = "mydb";
+    DB_ptr db = db_instance(db_name);
+    std::unique_ptr<Log::Logger> Log_obj = std::make_unique<Log::Logger>("Log.txt");
+    std::cout << "type EXIT to quit.\n.......................................\n";
     std::string line;
 
     while (true) {
+
         std::cout << "/> ";
         if (!std::getline(std::cin, line))
             break; // EOF or error
@@ -23,7 +28,7 @@ int main() {
         ss >> cmd;
 
         // Normalize command
-        for (auto &c : cmd) c = toupper(c);
+        for (auto& c : cmd) c = toupper(c);
 
         if (cmd == "EXIT") {
             break;
@@ -43,9 +48,10 @@ int main() {
                 continue;
             }
 
-            if(db->SET(key, value))
+            if (db->SET(key, value))
             {
                 std::cout << "OK\n";
+                Log_obj->log("inserted data with key : " + key);
             }
             else {
                 std::cout << "Not OK\n";
@@ -66,16 +72,37 @@ int main() {
             if (result.empty())
             {
                 std::cout << "(nil)\n";
-            }else{
+            }
+            else {
                 std::cout << result << "\n";
             }
-    }
+        }
+
+        else if (cmd == "BACKUP") {
+            std::string key;
+            ss >> key;
+            if (key.empty()) {
+                std::cout << "Usage: GET <backup_filename_withou_extension>\n";
+                continue;
+            }
+
+            std::unique_ptr<Backup::BackupUnit>  bckp = std::make_unique<Backup::BackupUnit>(key);
+            if (bckp->Backup(db->data)) {
+                std::cout << "success \n";
+            }
+            else {
+                std::cout << "failure \n";
+            }
+        }
+
+        
 
         else {
             std::cout << "Unknown command: " << cmd << "\n";
         }
     }
 
-    std::cout << "Bye!\n";
+    
+    std::cout << "Closing\n";
     return 0;
 }

@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Dash.vcxproj" Id="f2c22c8d-54de-4bb1-963e-468bbebc02e4" />
+</Solution>

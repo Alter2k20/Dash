@@ -45,3 +45,15 @@
 *.avi
 *.mkv
 *.webm
+
+#conf
+.clangd
+
+#logfiles and data  files
+*.txt
+
+#folders
+Dash/
+x64/
+.vs/
+.idea/

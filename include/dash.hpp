@@ -10,7 +10,6 @@
 namespace db {
 
 
-    using namespace std;
     /*
      * soft info
      */
